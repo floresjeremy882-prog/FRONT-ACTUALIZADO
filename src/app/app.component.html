@@ -1,0 +1,100 @@
+<div class="container py-5">
+  
+  <div class="text-center mb-5">
+    <div class="logo-container mb-2">
+      <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="Logotipo" style="height: 45px;">
+    </div>
+    <h1 class="display-6 fw-bold">Sistema de Gestión</h1>
+    <p class="text-muted small">Control de personal conectado a PostgreSQL</p>
+  </div>
+
+  <div class="card shadow-sm border-0 mb-5 levitate-card">
+    <div class="card-header text-white py-2" 
+         [style.background-color]="formEmpleado.get('id')?.value ? '#f97316' : '#0d6efd'">
+      <h6 class="mb-0 text-uppercase fw-bold" style="font-size: 0.75rem; letter-spacing: 1px;">
+        <i class="bi" [ngClass]="formEmpleado.get('id')?.value ? 'bi-pencil-square' : 'bi-person-plus-fill'"></i>
+        {{ formEmpleado.get('id')?.value ? ' Editando Colaborador' : ' Registrar Nuevo Colaborador' }}
+      </h6>
+    </div>
+    <div class="card-body p-4">
+      <form [formGroup]="formEmpleado" (ngSubmit)="guardar()" class="row g-3 align-items-end">
+        <div class="col-md-3">
+          <label class="small-label">NOMBRE COMPLETO</label>
+          <input type="text" formControlName="nombre" class="form-control form-control-sm custom-input" placeholder="Ej: Jerenmi Flores">
+        </div>
+        <div class="col-md-3">
+          <label class="small-label">CORREO ELECTRÓNICO</label>
+          <input type="email" formControlName="email" class="form-control form-control-sm custom-input" placeholder="nombre&#64;correo.com">
+        </div>
+        <div class="col-md-2">
+          <label class="small-label">CARGO / PUESTO</label>
+          <input type="text" formControlName="cargo" class="form-control form-control-sm custom-input" placeholder="Ej: Desarrollador .NET">
+        </div>
+        <div class="col-md-2">
+          <label class="small-label">FECHA DE INGRESO</label>
+          <input type="date" formControlName="fechaIngreso" class="form-control form-control-sm custom-input">
+        </div>
+        <div class="col-md-2 d-flex justify-content-center pb-1">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" formControlName="estaActivo" id="switchEstado">
+            <label class="form-check-label fw-bold" for="switchEstado" style="font-size: 0.7rem;">ACTIVO ●</label>
+          </div>
+        </div>
+        <div class="col-12 text-end mt-3">
+          <button type="submit" class="btn btn-sm px-4 text-white fw-bold shadow-sm"
+                  [style.background-color]="formEmpleado.get('id')?.value ? '#f97316' : '#4cd1c0'"
+                  style="border: none;">
+            {{ formEmpleado.get('id')?.value ? 'ACTUALIZAR CAMBIOS' : 'GUARDAR EMPLEADO' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card shadow-sm border-0 levitate-card">
+    <div class="card-header bg-dark text-white py-2 d-flex justify-content-between align-items-center">
+      <h6 class="mb-0 text-uppercase fw-bold" style="font-size: 0.75rem; letter-spacing: 1px;">
+        <i class="bi bi-database-fill me-2"></i>BASE DE DATOS
+      </h6>
+      <div class="d-flex align-items-center">
+        <div class="btn-group-filter-small me-3 shadow-sm">
+          <button type="button" (click)="filtroEstado = 'todos'" [class.active]="filtroEstado === 'todos'">Todos</button>
+          <button type="button" (click)="filtroEstado = 'activos'" [class.active]="filtroEstado === 'activos'">Activos</button>
+          <button type="button" (click)="filtroEstado = 'inactivos'" [class.active]="filtroEstado === 'inactivos'">Inactivos</button>
+        </div>
+        <span class="badge bg-primary shadow-sm" style="font-size: 0.65rem;">{{ empleadosFiltrados.length }} REGISTROS</span>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0" style="font-size: 0.85rem;">
+        <thead class="table-light">
+          <tr>
+            <th class="ps-4 py-2" style="font-size: 0.7rem;">NOMBRE</th>
+            <th class="py-2" style="font-size: 0.7rem;">EMAIL</th>
+            <th class="py-2" style="font-size: 0.7rem;">CARGO</th>
+            <th class="py-2" style="font-size: 0.7rem;">FECHA INGRESO</th>
+            <th class="py-2" style="font-size: 0.7rem;">ESTADO</th>
+            <th class="text-end pe-4 py-2" style="font-size: 0.7rem;">ACCIONES</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let emp of empleadosFiltrados">
+            <td class="ps-4 fw-bold">{{ emp.nombre }}</td>
+            <td class="text-muted">{{ emp.email }}</td>
+            <td><span class="cargo-tag-mini">{{ emp.cargo }}</span></td>
+            <td class="text-muted">{{ emp.fechaIngreso | date:'dd MMM yyyy' }}</td>
+            <td>
+              <span [class]="emp.estaActivo ? 'status-pill-active-mini' : 'status-pill-inactive-mini'">
+                {{ emp.estaActivo ? '● ACTIVO' : '○ INACTIVO' }}
+              </span>
+            </td>
+            <td class="text-end pe-4">
+              <button type="button" (click)="seleccionarEmpleado(emp)" class="btn btn-outline-primary btn-sm me-1 border-0 p-1"><i class="bi bi-pencil-fill"></i></button>
+              <button type="button" (click)="eliminar(emp.id!)" class="btn btn-outline-danger btn-sm border-0 p-1"><i class="bi bi-trash-fill"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

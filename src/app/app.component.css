@@ -1,0 +1,69 @@
+/* --- Etiquetas y Entradas Mini --- */
+.small-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #6c757d;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.custom-input {
+  font-size: 0.8rem !important;
+  padding: 0.4rem 0.75rem !important;
+  background-color: #f8f9fa !important;
+  border: 1px solid #dee2e6 !important;
+}
+
+/* --- Filtros --- */
+.btn-group-filter-small {
+  display: flex;
+  background-color: white;
+  padding: 2px;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+}
+
+.btn-group-filter-small button {
+  background: transparent;
+  border: none;
+  color: #6c757d;
+  padding: 2px 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 4px;
+}
+
+.btn-group-filter-small button.active {
+  background-color: #0d6efd;
+  color: white;
+}
+
+/* --- Estados y Tags --- */
+.status-pill-active-mini, .status-pill-inactive-mini {
+  padding: 3px 10px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.65rem;
+  border: 1px solid;
+}
+
+.status-pill-active-mini { color: #198754; background-color: #e8f5e9; border-color: #c8e6c9; }
+.status-pill-inactive-mini { color: #dc3545; background-color: #fff5f5; border-color: #ffe3e3; }
+
+.cargo-tag-mini {
+  background-color: #e3f2fd;
+  color: #0d6efd;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+/* --- Efectos --- */
+.levitate-card {
+  transition: transform 0.3s ease;
+}
+.levitate-card:hover {
+  transform: translateY(-5px);
+}
